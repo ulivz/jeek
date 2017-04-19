@@ -30,7 +30,7 @@ export function isPrototypeOf(source, target) {
  */
 function baseClone(source, target) {
 
-    for (let key of _keys(source)) {
+    for (let key of Object.keys(source)) {
 
         // 若存在对象的属性引用对象自身的
         // 为了避免死循环，跳过
@@ -86,10 +86,11 @@ function baseMerge(type, source, objs) {
         throw new Error('[Error] The given type must be soft or hard')
     }
 
-    if (objs.length === 1) {
+    if (!objs) {
         return source
 
     } else {
+
         for (let i = 0; i < objs.length; i++) {
             for (let key of Object.keys(objs[i])) {
                 if (type === 'soft' && source.hasOwnProperty(key)) {
@@ -100,7 +101,6 @@ function baseMerge(type, source, objs) {
         }
     }
 
-    return source
 }
 
 /**
@@ -108,9 +108,10 @@ function baseMerge(type, source, objs) {
  * @param source
  */
 export function softMerge(source) {
-    let objs = _Array._from(arguments)
+    let objs = Array.from(arguments)
     objs.splice(0, 1)
     baseMerge('soft', source, objs)
+    return source
 }
 
 /**
@@ -118,17 +119,87 @@ export function softMerge(source) {
  * @param source
  */
 export function merge(source) {
-    let objs = _Array._from(arguments)
+    let objs = Array.from(arguments)
     objs.splice(0, 1)
     baseMerge('hard', source, objs)
+    return source
+}
+
+/**
+ * 传入一个对象，返回一个继承其原型的对象实例
+ * @param ob
+ * @returns {f}
+ */
+export function createByPrototype(ob) {
+    let f = new Function()
+    f.prototype = ob.prototype
+    return new f()
+}
+
+/**
+ * 传入一个对象，返回一个继承其本身的对象实例
+ * @param ob
+ * @returns {f}
+ */
+export const create = _create ? _create : function (ob) {
+    let f = new Function()
+    f.prototype = ob
+    return new f()
+}
+
+/**
+ * 寄生组合式继承
+ * 注意：本继承中，只有第一个出现的父类会出现在原型链上，多余的父类将不会存在于原型链上
+ * @param source
+ * @param target
+ */
+export function inherit(child, parent) {
+
+    if (!child || !parent) {
+        throw new Error('[Error] Unexpeacted parameters')
+    }
+
+    // 额外要继承的类
+    let extPrs = Array.from(arguments)
+    extPrs.splice(0, 2)
+
+    let _ob = createByPrototype(parent)
+
+    if (Object.keys(child.prototype).length !== 0) {
+        merge(_ob, child.prototype)
+    }
+
+    for (let pr of extPrs) {
+        merge(
+            Object.getPrototypeOf(_ob),
+            Object.getPrototypeOf(createByPrototype(pr))
+        )
+    }
+
+    // 寄生组合式继承
+    _ob.constructor = child
+    child.prototype = _ob
 }
 
 
-export function inherit() {
-    
-}
 
+// function Parent(){
+//     this.f1 = function(){
+//         console.log('parent');
+//     }
+// }
 
-export const create = _create ? _create : function () {
+// function Child(){
+//     this.f1 = function(){
+//         console.log('child');
+//         Parent.call(this)
+//         $super.f1();
+//     }
+// }
 
-}
+// function Grandson(){
+//     this.f1 = function(){
+//         console.log('grandson');
+//         $super.f1();
+//     }
+// }
