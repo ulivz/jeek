@@ -21,7 +21,7 @@ A awesome javascript library
 ### create(source)
 - source: `Object` 源对象
 
-本方法同`Object.create()`, 本方法源码如下：
+本方法同`Object.create()`, 源码如下：
 
 ```js
  function (ob) {
