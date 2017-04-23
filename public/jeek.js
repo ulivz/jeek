@@ -461,6 +461,10 @@ function baseInherit(child, parent) {
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _object = __webpack_require__(2);
 
 var object = _interopRequireWildcard(_object);
@@ -475,9 +479,10 @@ var type = _interopRequireWildcard(_type);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var __ = object.merge(object, array, type);
+exports.default = object.merge(object, array, type);
 
-console.log(__);
+
+console.log(object.merge(object, array, type));
 
 /***/ })
 /******/ ]);

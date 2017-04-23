@@ -152,7 +152,6 @@ export function relySoftMerge(source) {
 }
 
 
-
 /**
  * 传入一个对象，返回一个继承其原型的对象实例
  * @param ob

@@ -37,12 +37,45 @@ A awesome javascript library
 注意本方法与`create()`的区别，本方法将会返回一个以**给定源对象的原型对象**为原型对象的类的实例，本方法在寄生继承中十分常见。
 
 ### merge(object1, object2 ... objectN)
+- object1: `Object` 对象1
+- object2: `Object` 对象2
+- objectN: `Object` 对象N
 
 `merge()`方法可以合并多个对象, 并返回一个合并后的对象。请注意，虽然本方法并未直接修改源对象，但合并时仍然采用的是浅复制，在使用时请考虑是否允许修改源对象。如果不允许，请结合深复制`deepClone()`来进行合并。
 
+合并示例, 例如本库最终在导出时使用了自己的`merge()`方法：
+
+```js
+import * as object from './src/object'
+import * as array from './src/array'
+import * as type from './src/type'
+
+export default object.merge(
+    object,
+    array,
+    type
+)
+```
+
 ### relyMerge(object1, object2 ... objectN)
 
-`relyMerge()`，故名思议，为“依赖合并”。和`merge()`方法的区别在于：`relyMerge()`会直接修改传入参数中的第一个对象，并将后续对象的属性都合并到第一个对象中。
+`relyMerge()`，故名思议，为“依赖合并”。和`merge()`方法的区别在于：`relyMerge()`会直接修改传入参数中的第一个对象，并将后续对象的属性都合并到第一个对象中。本方法在本类库实现`baseInherit()`方法时用到了：
+
+```js
+    let _ob = createByPrototype(parent)
+
+    if (Object.keys(child.prototype).length !== 0) {
+        relyMerge(_ob, child.prototype)
+    }
+
+    _ob.constructor = child
+    child.prototype = _ob
+```
+
+仔细品味，你会发现这段代码的精髓。
+
+
+
 
 ### relySoftMerge(object1, object2 ... objectN)
 
@@ -53,6 +86,11 @@ method|description
 `relySoftMerge()`|不会覆盖第一个对象上的同名属性
 `relyMerge()` |与`relySoftMerge()`相反
 
+
+### baseInherit(childClass, parentClass)
+- childClass
+
+### inherit(class1, class2 ... classN)
 
 
 ## Array
