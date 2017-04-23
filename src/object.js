@@ -148,16 +148,26 @@ export const create = _create ? _create : function (ob) {
 }
 
 /**
- * 寄生组合式继承
- * 注意：本继承中，只有第一个出现的父类会出现在原型链上，多余的父类将不会存在于原型链上
+ * 多继承
  * @param source
  * @param target
  */
 export function inherit() {
 
-    let args = Array.from(arguments),
-        child = args[0],
-        parent = args[1]
+    let args = Array.from(arguments)
+
+    for (let i = args.length - 1; i > 0; i--) {
+        baseInherit(args[i - 1], args[i])
+    }
+
+}
+
+/**
+ * 基本的继承方法 - 寄生组合式继承
+ * @param child
+ * @param parent
+ */
+function baseInherit(child, parent) {
 
     if (!child || !parent) {
         throw new Error('[Error] Unexpeacted parameters')
@@ -172,33 +182,4 @@ export function inherit() {
     // 寄生组合式继承
     _ob.constructor = child
     child.prototype = _ob
-
-    // 实现多继承
-    if (args.length > 2) {
-        for (let i = 2; i < args.length; i++) {
-            inherit(args[i - 1], args[i])
-        }
-    }
 }
-
-
-// function Parent(){
-//     this.f1 = function(){
-//         console.log('parent');
-//     }
-// }
-
-// function Child(){
-//     this.f1 = function(){
-//         console.log('child');
-//         Parent.call(this)
-//         $super.f1();
-//     }
-// }
-
-// function Grandson(){
-//     this.f1 = function(){
-//         console.log('grandson');
-//         $super.f1();
-//     }
-// }

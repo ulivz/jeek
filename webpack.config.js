@@ -4,8 +4,8 @@ module.exports = {
     entry: "./index.js",
     output: {
         path: __dirname,
-        filename: "./dist/linkup.js",
-        library: 'linkup',
+        filename: "./public/jeek.js",
+        library: 'jeek',
         libraryTarget: 'umd'
     },
     module: {
@@ -21,16 +21,15 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE.ENV': "development"
         }),
-        new webpack.HotModuleReplacementPlugin()
+        // new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
         filename: "jeek.js",
-        publicPath: "/static/js/",
-        port: 5122,
+        publicPath: "/public/",
+        port: 8099,
         historyApiFallback: true,
         hot: true,
-        inline: true,
-        progress: true,
+        inline: true
     },
 };
 

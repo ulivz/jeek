@@ -132,27 +132,29 @@ describe('继承 的测试: ', function () {
             this.a = 'a'
         }
 
-        A.prototype.getA = function () { return this.a }
+        A.prototype.getA = function () {
+            return this.a
+        }
 
         function B() {
             A.call(this)
             this.b = 'b'
         }
 
-        B.prototype.getB = function () { return this.b }
+        B.prototype.getB = function () {
+            return this.b
+        }
 
         function C() {
             B.call(this)
             this.c = 'c'
         }
 
-        C.prototype.getC = function () { return this.c }
+        C.prototype.getC = function () {
+            return this.c
+        }
 
-        // Ｂ继承Ａ
-        ob.inherit(B, A)
-
-        // C继承B
-        ob.inherit(C, B)
+        ob.inherit(C, B, A)
 
         let instance = new C()
 
