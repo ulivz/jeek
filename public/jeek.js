@@ -199,6 +199,7 @@ exports.softMerge = softMerge;
 exports.merge = merge;
 exports.createByPrototype = createByPrototype;
 exports.inherit = inherit;
+exports.baseInherit = baseInherit;
 
 var _type = __webpack_require__(1);
 

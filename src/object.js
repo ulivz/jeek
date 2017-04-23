@@ -167,7 +167,7 @@ export function inherit() {
  * @param child
  * @param parent
  */
-function baseInherit(child, parent) {
+export function baseInherit(child, parent) {
 
     if (!child || !parent) {
         throw new Error('[Error] Unexpeacted parameters')

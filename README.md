@@ -3,6 +3,8 @@ A awesome javascript library
 
 ## API
 
+
+
 ## Object
 
 ### clone(source)
@@ -51,6 +53,30 @@ A awesome javascript library
 本方法同`Array.prototype.map()`
 
 
- 
+## Type
+
+### isArray(source)
+- source: `any`
+
+### isNull(source)
+- source: `any`
+
+### isNumber(source)
+- source: `any`
+
+### isObject(source)
+- source: `any`
+
+### isPureObject(source)
+- source: `any`
+
+### isPrototypeOf(source)
+- source: `any`
+
+### isString(source)
+- source: `any`
+
+### isUndefined(source)
+- source: `any`
 
 
