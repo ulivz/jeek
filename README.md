@@ -114,11 +114,66 @@ method|description
         
 ```
 
-> 为什么说本方法是基于寄生组合式继承实现，而不仅仅是寄生组合式继承？原因在于，本方法可以在子类继承父类原型**之前**给子类的原型上添加方法，而传统的寄生组合式继承必须在子类继承父类原型**之后**给子类的原型上添加方法。
+为什么说本方法是基于寄生组合式继承实现，而不仅仅是寄生组合式继承？原因在于，本方法可以在子类继承父类原型**之前**给子类的原型上添加方法，而传统的寄生组合式继承必须在子类继承父类原型**之后**给子类的原型上添加方法。
 
 
 ### inherit(class1, class2 ... classN)
+- class1: `Finction` 继承链的第一个类
+- class2: `Finction` 继承链的第二个类
+- classN: `Finction` 继承链的第N个类
 
+`inherit()`是`baseInherit()`的升级版，可以快速地帮你构建起一个原型继承链。如果有三个类`A`、`B`、`C`、`D`, 调用方法如下：
+
+```js
+inherit(D, C, B, A)
+```
+
+那么，本方法实际上帮你实现了D继承C、C继承B、B继承了A。一个完整的继承的例子如下：
+
+```js
+    function A() {
+        this.a = 'a'
+    }
+
+    A.prototype.getA = function () {
+        return this.a
+    }
+
+    function B() {
+        A.call(this)
+        this.b = 'b'
+    }
+
+    B.prototype.getB = function () {
+        return this.b
+    }
+
+    function C() {
+        B.call(this)
+        this.c = 'c'
+    }
+
+    C.prototype.getC = function () {
+        return this.c
+    }
+
+    ob.inherit(C, B, A)
+
+    let instance = new C()
+
+    console.log(instance)
+    console.log(instance.__proto__ === C.prototype) // true
+    console.log(instance.__proto__.__proto__ === B.prototype) // true
+    console.log(instance.__proto__.__proto__.__proto__ === A.prototype) // true
+
+    console.log(instance.getA()) // 'a'
+    console.log(instance.getB()) // 'b'
+    console.log(instance.getC()) // 'c'
+
+    console.log(instance.__proto__.getC.call(instance)) // 'c'
+    console.log(instance.__proto__.__proto__.getB.call(instance)) // 'b'
+    console.log(instance.__proto__.__proto__.__proto__.getA.call(instance)) // 'a'
+```
 
 ## Array
 
