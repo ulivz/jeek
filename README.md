@@ -12,7 +12,7 @@ A awesome javascript library
 
 ### deepClone(source)
 - source: `Object` 源对象
-- 说明：本方法是深克隆，请注意，在引用类型中，本方法仅仅只对对象和数组进行了深克隆。
+- 说明：本方法是深克隆，请注意，在`JavaScript`的引用类型中，本方法目前仅仅只对**对象**和**数组**进行了深克隆。
 
 ### create(source)
 - source: `Object` 源对象
