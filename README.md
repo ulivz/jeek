@@ -72,8 +72,7 @@ export default object.merge(
     child.prototype = _ob
 ```
 
-仔细品味，你会发现这段代码的精髓——为什么这里只能用`relyMerge()`，而不能用`merge()`？
-
+仔细体会，你会发现这段代码的精髓——为什么这里只能用`relyMerge()`，而不能用`merge()`？
 
 ### relySoftMerge(object1, object2 ... objectN)
 
@@ -86,7 +85,34 @@ method|description
 
 
 ### baseInherit(childClass, parentClass)
-- childClass
+- childClass: `Finction` 子类
+- parentClass: `Finction` 父类
+
+请注意，本继承方法仅仅是**实现原型的继承**——关于实例属性和方法的继承，请结合构造函数式继承来完成, 示例如下：
+
+```js
+    function A(name) {
+        this.name = name
+        this.a = 'A' + name
+    }
+
+    A.prototype.getA = function () {
+        return this.a
+    }
+    
+    function B(name) {
+    	A.call(name)  // 构造函数式继承 - 类似于 Java 的 super(props)
+        this.name = name
+        this.b = 'B' + name
+    }
+    
+    B.prototype.getB = function () {
+        return this.b
+    }
+    
+    baseInherit(B, A) // 继承原型 - 基于寄生组合式继承实现
+    
+```
 
 ### inherit(class1, class2 ... classN)
 
