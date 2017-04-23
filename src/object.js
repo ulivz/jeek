@@ -153,15 +153,15 @@ export const create = _create ? _create : function (ob) {
  * @param source
  * @param target
  */
-export function inherit(child, parent) {
+export function inherit() {
+
+    let args = Array.from(arguments),
+        child = args[0],
+        parent = args[1]
 
     if (!child || !parent) {
         throw new Error('[Error] Unexpeacted parameters')
     }
-
-    // 额外要继承的类
-    let extPrs = Array.from(arguments)
-    extPrs.splice(0, 2)
 
     let _ob = createByPrototype(parent)
 
@@ -169,18 +169,17 @@ export function inherit(child, parent) {
         merge(_ob, child.prototype)
     }
 
-    for (let pr of extPrs) {
-        merge(
-            Object.getPrototypeOf(_ob),
-            Object.getPrototypeOf(createByPrototype(pr))
-        )
-    }
-
     // 寄生组合式继承
     _ob.constructor = child
     child.prototype = _ob
-}
 
+    // 实现多继承
+    if (args.length > 2) {
+        for (let i = 2; i < args.length; i++) {
+            inherit(args[i - 1], args[i])
+        }
+    }
+}
 
 
 // function Parent(){

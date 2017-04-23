@@ -1,8 +1,7 @@
 // import * as arr from '../src/array'
 // import chai from 'chai'
 // let expect = chai.expect
-//
-//
+
 // /* isPrototypeOf
 //    ========================================================================== */
 // describe('isPrototypeOf 的测试: ', function () {
