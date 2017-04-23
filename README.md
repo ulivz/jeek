@@ -59,7 +59,7 @@ export default object.merge(
 
 ### relyMerge(object1, object2 ... objectN)
 
-`relyMerge()`，故名思议，为“依赖合并”。和`merge()`方法的区别在于：`relyMerge()`会直接修改传入参数中的第一个对象，并将后续对象的属性都合并到第一个对象中。本方法在本类库实现`baseInherit()`方法时用到了：
+`relyMerge()`，故名思议，为“依赖合并”。和`merge()`方法的区别在于：`relyMerge()`会以传入参数中的第一个对象为**基对象**，并将后续对象的属性都合并到第一个对象中。本方法在本类库实现`baseInherit()`方法时用到了：
 
 ```js
     let _ob = createByPrototype(parent)
@@ -72,9 +72,7 @@ export default object.merge(
     child.prototype = _ob
 ```
 
-仔细品味，你会发现这段代码的精髓。
-
-
+仔细品味，你会发现这段代码的精髓——为什么这里只能用`relyMerge()`，而不能用`merge()`？
 
 
 ### relySoftMerge(object1, object2 ... objectN)
