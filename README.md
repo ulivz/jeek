@@ -48,10 +48,10 @@ A awesome javascript library
 
 `relySoftMerge()` 同 `relyMerge()` 的区别如下：
 
-method|desc
+method|description
 ---|---
 `relySoftMerge()`|不会覆盖第一个对象上的同名属性
-`relyMerge()` |与上相反
+`relyMerge()` |与`relySoftMerge()`相反
 
 
 
