@@ -141,7 +141,7 @@ export function createByPrototype(ob) {
  * @param ob
  * @returns {f}
  */
-export const create = _create ? _create : function (ob) {
+export let create = _create ? _create : function (ob) {
     let f = new Function()
     f.prototype = ob
     return new f()
