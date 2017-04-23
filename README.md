@@ -3,8 +3,6 @@ A awesome javascript library
 
 ## API
 
-
-
 ## Object
 
 ### clone(source)
@@ -37,6 +35,25 @@ A awesome javascript library
 - source: `Object` 源对象
 
 注意本方法与`create()`的区别，本方法将会返回一个以**给定源对象的原型对象**为原型对象的类的实例，本方法在寄生继承中十分常见。
+
+### merge(object1, object2 ... objectN)
+
+`merge()`方法可以合并多个对象, 并返回一个合并后的对象。请注意，虽然本方法并未直接修改源对象，但合并时仍然采用的是浅复制，在使用时请考虑是否允许修改源对象。如果不允许，请结合深复制`deepClone()`来进行合并。
+
+### relyMerge(object1, object2 ... objectN)
+
+`relyMerge()`，故名思议，为“依赖合并”。和`merge()`方法的区别在于：`relyMerge()`会直接修改传入参数中的第一个对象，并将后续对象的属性都合并到第一个对象中。
+
+### relySoftMerge(object1, object2 ... objectN)
+
+`relySoftMerge()` 同 `relyMerge()` 的区别如下：
+
+method|desc
+---|---
+`relySoftMerge()`|不会覆盖第一个对象上的同名属性
+`relyMerge()` |与上相反
+
+
 
 ## Array
 

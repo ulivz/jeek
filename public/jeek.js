@@ -195,8 +195,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 exports.isPrototypeOf = isPrototypeOf;
 exports.deepClone = deepClone;
 exports.clone = clone;
-exports.softMerge = softMerge;
 exports.merge = merge;
+exports.relyMerge = relyMerge;
+exports.relySoftMerge = relySoftMerge;
 exports.createByPrototype = createByPrototype;
 exports.inherit = inherit;
 exports.baseInherit = baseInherit;
@@ -354,13 +355,30 @@ function baseMerge(type, source, objs) {
 }
 
 /**
- * merge - 本方法不会覆盖源对象上的同名属性
+ * merge - 本方法会覆盖源对象上的同名属性
  * @param source
  */
-function softMerge(source) {
+function merge(source) {
+
+    var objs = Array.from(arguments),
+        result = new Object();
+
+    baseMerge('hard', result, objs);
+
+    return result;
+}
+
+/**
+ * merge - 本方法会覆盖源对象上的同名属性
+ * @param source
+ */
+function relyMerge(source) {
+
     var objs = Array.from(arguments);
     objs.splice(0, 1);
-    baseMerge('soft', source, objs);
+
+    baseMerge('hard', source, objs);
+
     return source;
 }
 
@@ -368,10 +386,13 @@ function softMerge(source) {
  * merge - 本方法会覆盖源对象上的同名属性
  * @param source
  */
-function merge(source) {
+function relySoftMerge(source) {
+
     var objs = Array.from(arguments);
     objs.splice(0, 1);
-    baseMerge('hard', source, objs);
+
+    baseMerge('soft', source, objs);
+
     return source;
 }
 
@@ -425,7 +446,7 @@ function baseInherit(child, parent) {
     var _ob = createByPrototype(parent);
 
     if (Object.keys(child.prototype).length !== 0) {
-        merge(_ob, child.prototype);
+        relyMerge(_ob, child.prototype);
     }
 
     // 寄生组合式继承
@@ -454,7 +475,7 @@ var type = _interopRequireWildcard(_type);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var __ = object.merge({}, object, array, type);
+var __ = object.merge(object, array, type);
 
 console.log(__);
 

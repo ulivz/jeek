@@ -71,10 +71,10 @@ describe('merge 的测试: ', function () {
             location: 'Shanghai'
         }
 
-        ob.softMerge(obj1, obj5, obj6)
+        ob.relySoftMerge(obj1, obj5, obj6)
         expect(obj1.id).to.be.equal(1)
 
-        ob.merge(obj1, obj5, obj6)
+        ob.relyMerge(obj1, obj5, obj6)
         expect(obj1.id).to.be.equal(5)
     });
 })

@@ -103,27 +103,55 @@ function baseMerge(type, source, objs) {
 
 }
 
-/**
- * merge - 本方法不会覆盖源对象上的同名属性
- * @param source
- */
-export function softMerge(source) {
-    let objs = Array.from(arguments)
-    objs.splice(0, 1)
-    baseMerge('soft', source, objs)
-    return source
-}
 
 /**
  * merge - 本方法会覆盖源对象上的同名属性
  * @param source
  */
 export function merge(source) {
+
+    let objs = Array.from(arguments),
+        result = new Object()
+
+    baseMerge('hard', result, objs)
+
+    return result
+
+}
+
+
+/**
+ * merge - 本方法会覆盖源对象上的同名属性
+ * @param source
+ */
+export function relyMerge(source) {
+
     let objs = Array.from(arguments)
     objs.splice(0, 1)
+
     baseMerge('hard', source, objs)
+
     return source
+
 }
+
+
+/**
+ * merge - 本方法会覆盖源对象上的同名属性
+ * @param source
+ */
+export function relySoftMerge(source) {
+
+    let objs = Array.from(arguments)
+    objs.splice(0, 1)
+
+    baseMerge('soft', source, objs)
+
+    return source
+
+}
+
+
 
 /**
  * 传入一个对象，返回一个继承其原型的对象实例
@@ -176,7 +204,7 @@ export function baseInherit(child, parent) {
     let _ob = createByPrototype(parent)
 
     if (Object.keys(child.prototype).length !== 0) {
-        merge(_ob, child.prototype)
+        relyMerge(_ob, child.prototype)
     }
 
     // 寄生组合式继承
