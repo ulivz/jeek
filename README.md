@@ -67,7 +67,7 @@ export default object.merge(
     child.prototype = _ob
 ```
 
-仔细体会，你会发现这段代码的精髓——为什么这里只能用`relyMerge()`，而不能用`merge()`？
+如果非常熟悉`JavaScript`实现继承的原理，你会发现，这里只能用`relyMerge()`，而不能用`merge()`。
 
 ### relySoftMerge(object1, object2 ... objectN)
 - object1: `Object` 对象1
@@ -77,7 +77,7 @@ export default object.merge(
 
 method|description
 ---|---
-`relySoftMerge()`|不会覆盖第一个对象上的同名属性
+`relySoftMerge()`|不会覆盖**基对象**上的同名属性
 `relyMerge()` |与`relySoftMerge()`相反
 
 
