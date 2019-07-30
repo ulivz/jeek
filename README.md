@@ -1,4 +1,7 @@
 # jeek.js
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/ulivz/jeek.svg)](https://greenkeeper.io/)
+
 A awesome javascript library
 
 ## API
